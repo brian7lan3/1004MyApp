@@ -17,7 +17,7 @@
         var chart;
 
         function getA0() {
-            fetch('http://192.168.43.150/a0')
+            fetch('http://192.168.1.18/a0')
                 .then(function (response) {
                     return response.json();
                 })
@@ -27,7 +27,7 @@
         }
 
         function callBlink() {
-            fetch('http://192.168.43.150/blink')
+            fetch('http://192.168.1.18/blink')
 
                 .then(function (data) {
                     console.log('ok');
