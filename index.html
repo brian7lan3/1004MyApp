@@ -10,7 +10,12 @@
     <link href="c3.css" rel="stylesheet">
     <script src="d3-5.4.0.min.js"></script>
     <script src="c3.min.js"></script>
+
     <script>
+
+        var A0s;
+        var chart;
+
         function getA0() {
             fetch('http://192.168.43.150/a0')
                 .then(function (response) {
@@ -28,12 +33,32 @@
                     console.log('ok');
                 });
         }
+
+        window.onload = () => {
+            A0s = ['A0'];
+
+            chart = c3.generate({
+                bindto: '#chart',
+                data: {
+                    columns: [
+                        A0s
+                    ]
+                }
+            });
+        };
+
+
     </script>
+
+
 </head>
 
 <body>
     <input type="button" value="A0" onclick="getA0()">
     <input type="button" value="Blink" onclick="callBlink()">
+
+    <input type="button" value="Updata Chart" onclick="updataChart()">
+    <div id="chart"></div>
 
 </body>
 
