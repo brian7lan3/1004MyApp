@@ -6,6 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+
+    <script>
+        function getA0() {
+            fetch('http://192.168.43.150/a0')
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    console.log(data.A0);
+                });
+        }
+    </script>
 </head>
 
 <body>
