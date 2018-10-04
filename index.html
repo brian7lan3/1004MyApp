@@ -17,11 +17,20 @@
                     console.log(data.A0);
                 });
         }
+
+        function callBlink() {
+            fetch('http://192.168.43.150/blink')
+
+                .then(function (data) {
+                    console.log('ok');
+                });
+        }
     </script>
 </head>
 
 <body>
     <input type="button" value="A0" onclick="getA0()">
+    <input type="button" value="Blink" onclick="callBlink()">
 
 </body>
 
