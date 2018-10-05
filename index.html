@@ -15,18 +15,34 @@
 
         var A0s;
         var chart;
+        var timer;
 
         function getIp() {
             return document.getElementById("ip").value;
         }
 
-        function autoChart() {
-            setInterval(
-                () => {
-                    updataChart();
+        // function autoChart() {
+        //     setInterval(
+        //         () => {
+        //             updataChart();
 
-                },
-                1000);
+        //         },
+        //         1000);
+        // }
+
+        function onOffChart() {
+            if (document.getElementById('onOff').value == "Start") {
+                document.getElementById('onOff').value = "Stop";
+                timer = setInterval(
+                    () => {
+                        updataChart();
+                    },
+                    1000);
+            } else {
+                document.getElementById('onOff').value = "Start";
+                clearInterval(timer);
+            }
+
         }
 
         function updataChart() {
@@ -77,6 +93,10 @@
             });
         };
 
+        function test123() {
+
+        }
+
 
     </script>
 
@@ -88,9 +108,13 @@
     <input type="button" value="Blink" onclick="callBlink()">
 
     <input type="button" value="Updata Chart" onclick="updataChart()">
-    <div id="chart"></div>
+    <input type="button" value="autoChart" onclick="autoChart()">
 
-    <input type="text" name="" id="ip" value="192.168.1.18">
+    <input type="button" value="Start" onclick="onOffChart()" id="onOff">
+
+    <br><input type="text" name="" id="ip" value="192.168.1.18">
+
+    <div id="chart"></div>
 
 </body>
 
