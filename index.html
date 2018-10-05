@@ -16,6 +16,27 @@
         var A0s;
         var chart;
 
+        function getIp() {
+            return document.getElementById("ip"). value;
+        }
+
+        function updataChart() {
+            var ip = getIp();
+            fetch('http://' + ip + '/a0')
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    console.log(data);
+                    A0s = A0s.concat(data.A0);
+                    chart.load({
+                        columns: [
+                            A0s,
+                        ]
+                    });
+                });
+        }
+
         function getA0() {
             fetch('http://192.168.1.18/a0')
                 .then(function (response) {
@@ -59,6 +80,8 @@
 
     <input type="button" value="Updata Chart" onclick="updataChart()">
     <div id="chart"></div>
+
+    <input type="text" name="" id="ip" value="192.168.1.18">
 
 </body>
 
