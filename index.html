@@ -47,7 +47,7 @@
 
         function updataChart() {
             var ip = getIp();
-            fetch('http://' + ip + '/a0')
+            fetch('https://' + ip + '/a0')
                 .then(function (response) {
                     return response.json();
                 })
@@ -63,7 +63,7 @@
         }
 
         function getA0() {
-            fetch('http://192.168.1.18/a0')
+            fetch('https://192.168.1.18/a0')
                 .then(function (response) {
                     return response.json();
                 })
@@ -73,7 +73,7 @@
         }
 
         function callBlink() {
-            fetch('http://192.168.1.18/blink')
+            fetch('https://192.168.1.18/blink')
 
                 .then(function (data) {
                     console.log('ok');
@@ -93,7 +93,9 @@
             });
         };
 
+        function test123() {
 
+        }
 
 
     </script>
