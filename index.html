@@ -17,7 +17,16 @@
         var chart;
 
         function getIp() {
-            return document.getElementById("ip"). value;
+            return document.getElementById("ip").value;
+        }
+
+        function autoChart() {
+            setInterval(
+                () => {
+                    updataChart();
+
+                },
+                1000);
         }
 
         function updataChart() {
