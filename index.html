@@ -4,10 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta https-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BoLan Web ESP8266</title>
 
+    <!-- Load c3.css -->
     <link href="c3.css" rel="stylesheet">
+
+    <!-- Load d3.js and c3.js -->
     <script src="d3-5.4.0.min.js"></script>
     <script src="c3.min.js"></script>
 
@@ -21,14 +24,15 @@
             return document.getElementById("ip").value;
         }
 
-        // function autoChart() {
-        //     setInterval(
-        //         () => {
-        //             updataChart();
 
-        //         },
-        //         1000);
-        // }
+        function autoChart() {
+
+            setInterval(() => {
+                updataChart();
+
+            }, 1000);
+        }
+
 
         function onOffChart() {
             if (document.getElementById('onOff').value == "Start") {
@@ -45,9 +49,10 @@
 
         }
 
+
         function updataChart() {
             var ip = getIp();
-            fetch('https://' + ip + '/a0')
+            fetch('http://' + ip + '/a0')
                 .then(function (response) {
                     return response.json();
                 })
@@ -63,7 +68,8 @@
         }
 
         function getA0() {
-            fetch('https://192.168.1.18/a0')
+            var ip = getIp();
+            fetch('http://' + ip + '/a0')
                 .then(function (response) {
                     return response.json();
                 })
@@ -73,7 +79,8 @@
         }
 
         function callBlink() {
-            fetch('https://192.168.1.18/blink')
+            var ip = getIp();
+            fetch('http://' + ip + '/blink')
 
                 .then(function (data) {
                     console.log('ok');
@@ -93,9 +100,7 @@
             });
         };
 
-        function test123() {
 
-        }
 
 
     </script>
