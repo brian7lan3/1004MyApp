@@ -18,8 +18,8 @@
 
         var A0s;
         var A1s;
-        var chart;
-        var chartb;
+        var chart; //temperature
+        var chartb; //humidity
         var timer;
 
         function getIp() {
@@ -27,31 +27,50 @@
         }
 
 
-        function autoChart() {
+        // function autoChart() {
 
-            setInterval(() => {
-                updataChart();
+        //     setInterval(() => {
+        //         updataChart();
 
-            }, 1000);
-        }
+        //     }, 1000);
+        // }
 
 
-        function onOffChart() {
-            if (document.getElementById('onOff').value == "Start") {
-                document.getElementById('onOff').value = "Stop";
+
+//TEM AUTO
+        function onOffTemChart() {
+            if (document.getElementById('onOffTem').value == "TemStart") {
+                document.getElementById('onOffTem').value = "TemStop";
                 timer = setInterval(
                     () => {
-                        updataChart();
+                        tempChart()
                     },
-                    1000);
+                    3000);
             } else {
-                document.getElementById('onOff').value = "Start";
+                document.getElementById('onOffTem').value = "TemStart";
                 clearInterval(timer);
             }
 
         }
 
 
+//HUM AUTO
+        function onOffHumChart() {
+            if (document.getElementById('onOffHum').value == "HumStart") {
+                document.getElementById('onOffHum').value = "HumStop";
+                timer = setInterval(
+                    () => {
+                        humChart()
+                    },
+                    3000);
+            } else {
+                document.getElementById('onOffHum').value = "HumStart";
+                clearInterval(timer);
+            }
+
+        }
+
+//讀取溫度
         function tempChart() {
             var ip = getIp();
             fetch(ip)
@@ -69,6 +88,7 @@
                 });
         }
 
+//讀取濕度
         function humChart() {
             var ip = getIp();
             fetch(ip)
@@ -125,7 +145,8 @@
     <input type="button" value="tempChart" onclick="tempChart()">
     <input type="button" value="humChart" onclick="humChart()">
 
-    <input type="button" value="Start" onclick="onOffChart()" id="onOff">
+    <input type="button" value="TemStart" onclick="onOffTemChart()" id="onOffTem">
+    <input type="button" value="HumStart" onclick="onOffHumChart()" id="onOffHum">
 
     <br><input type="text" name="" id="ip" value="https://cloud.arest.io/brian">
 
