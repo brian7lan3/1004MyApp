@@ -17,7 +17,9 @@
     <script>
 
         var A0s;
+        var A1s;
         var chart;
+        var chartb;
         var timer;
 
         function getIp() {
@@ -50,15 +52,15 @@
         }
 
 
-        function updataChart() {
+        function tempChart() {
             var ip = getIp();
-            fetch('http://' + ip + '/a0')
+            fetch(ip)
                 .then(function (response) {
                     return response.json();
                 })
                 .then(function (data) {
-                    console.log(data);
-                    A0s = A0s.concat(data.A0);
+                    console.log("tem:" + data.variables.temperature);
+                    A0s = A0s.concat(data.variables.temperature);
                     chart.load({
                         columns: [
                             A0s,
@@ -67,28 +69,27 @@
                 });
         }
 
-        function getA0() {
+        function humChart() {
             var ip = getIp();
-            fetch('http://' + ip + '/a0')
+            fetch(ip)
                 .then(function (response) {
                     return response.json();
                 })
                 .then(function (data) {
-                    console.log(data.A0);
+                    console.log("hum:" + data.variables.humidity);
+                    A1s = A1s.concat(data.variables.humidity);
+                    chartb.load({
+                        columns: [
+                            A1s,
+                        ]
+                    });
                 });
         }
 
-        function callBlink() {
-            var ip = getIp();
-            fetch('http://' + ip + '/blink')
 
-                .then(function (data) {
-                    console.log('ok');
-                });
-        }
 
         window.onload = () => {
-            A0s = ['A0'];
+            A0s = ['humidity'];
 
             chart = c3.generate({
                 bindto: '#chart',
@@ -98,7 +99,19 @@
                     ]
                 }
             });
+
+            A1s = ['temperature'];
+
+            chartb = c3.generate({
+                bindto: '#chartb',
+                data: {
+                    columns: [
+                        A1s
+                    ]
+                }
+            });
         };
+
 
 
 
@@ -109,17 +122,16 @@
 </head>
 
 <body>
-    <input type="button" value="A0" onclick="getA0()">
-    <input type="button" value="Blink" onclick="callBlink()">
-
-    <input type="button" value="Updata Chart" onclick="updataChart()">
-    <input type="button" value="autoChart" onclick="autoChart()">
+    <input type="button" value="tempChart" onclick="tempChart()">
+    <input type="button" value="humChart" onclick="humChart()">
 
     <input type="button" value="Start" onclick="onOffChart()" id="onOff">
 
-    <br><input type="text" name="" id="ip" value="192.168.1.18">
+    <br><input type="text" name="" id="ip" value="https://cloud.arest.io/brian">
 
     <div id="chart"></div>
+    <div id="chartb"></div>
+
 
 </body>
 
