@@ -16,14 +16,52 @@
 
     <script>
 
-        var A0s;
-        var A1s;
+        var A0s;  //temperature
+        var A1s;  //humidity
         var chart; //temperature
         var chartb; //humidity
         var timer;
 
+        var PSs;
+        var PSchart;
+
         function getIp() {
             return document.getElementById("ip").value;
+        }
+
+
+        //光敏電阻自動
+        function autoPSchart() {
+            if (document.getElementById('PSstart').value == "PSstart") {
+                document.getElementById('PSstart').value = "PSstop";
+                timer = setInterval(
+                    () => {
+                        rPSchart()
+                    },
+                    3000);
+            } else {
+                document.getElementById('PSstart').value = "PSstart";
+                clearInterval(timer);
+            }
+
+        }
+
+        //光敏電阻讀取
+        function rPSchart() {
+            var ip = getIp();
+            fetch(ip)
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    console.log("PS:" + data.variables.photoresistor);
+                    PSs = PSs.concat(data.variables.photoresistor);
+                    PSchart.load({
+                        columns: [
+                            PSs,
+                        ]
+                    });
+                });
         }
 
 
@@ -37,7 +75,7 @@
 
 
 
-//TEM AUTO
+        //TEM AUTO
         function onOffTemChart() {
             if (document.getElementById('onOffTem').value == "TemStart") {
                 document.getElementById('onOffTem').value = "TemStop";
@@ -54,7 +92,7 @@
         }
 
 
-//HUM AUTO
+        //HUM AUTO
         function onOffHumChart() {
             if (document.getElementById('onOffHum').value == "HumStart") {
                 document.getElementById('onOffHum').value = "HumStop";
@@ -70,7 +108,7 @@
 
         }
 
-//讀取溫度
+        //讀取溫度
         function tempChart() {
             var ip = getIp();
             fetch(ip)
@@ -88,7 +126,7 @@
                 });
         }
 
-//讀取濕度
+        //讀取濕度
         function humChart() {
             var ip = getIp();
             fetch(ip)
@@ -109,7 +147,7 @@
 
 
         window.onload = () => {
-            A0s = ['humidity'];
+            A0s = ['溫度.temperature'];
 
             chart = c3.generate({
                 bindto: '#chart',
@@ -120,13 +158,24 @@
                 }
             });
 
-            A1s = ['temperature'];
+            A1s = ['濕度.humidity'];
 
             chartb = c3.generate({
                 bindto: '#chartb',
                 data: {
                     columns: [
                         A1s
+                    ]
+                }
+            });
+
+            PSs = ['光敏.photoresistor'];
+
+            PSchart = c3.generate({
+                bindto: '#PSchart',
+                data: {
+                    columns: [
+                        PSs
                     ]
                 }
             });
@@ -144,14 +193,17 @@
 <body>
     <input type="button" value="tempChart" onclick="tempChart()">
     <input type="button" value="humChart" onclick="humChart()">
+    <input type="button" value="PSchart" onclick="rPSchart()">
 
     <input type="button" value="TemStart" onclick="onOffTemChart()" id="onOffTem">
     <input type="button" value="HumStart" onclick="onOffHumChart()" id="onOffHum">
+    <input type="button" value="PSstart" onclick="autoPSchart()" id="PSstart">
 
     <br><input type="text" name="" id="ip" value="https://cloud.arest.io/brian">
 
     <div id="chart"></div>
     <div id="chartb"></div>
+    <div id="PSchart"></div>
 
 
 </body>
