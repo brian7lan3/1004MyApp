@@ -15,19 +15,19 @@ void setupDHT() {
 }
 
 
-void loopDHT_Fake() {
-  delay(2000);
-  float h = random(10, 90);
-  float t = random(10, 50);
-  Serial.print("Humidity: ");
-  Serial.print(h);
-  Serial.print(" %\t");
-  Serial.print("Temperature: ");
-  Serial.print(t);
-  Serial.println(" *C ");
-  temperature = t;
-  humidity = h;
-}
+//void loopDHT_Fake() {
+//  delay(2000);
+//  float h = random(10, 90);
+//  float t = random(10, 50);
+//  Serial.print("Humidity: ");
+//  Serial.print(h);
+//  Serial.print(" %\t");
+//  Serial.print("Temperature: ");
+//  Serial.print(t);
+//  Serial.println(" *C ");
+//  temperature = t;
+//  humidity = h;
+//}
 
 
 void loopDHT() {
@@ -52,6 +52,8 @@ void loopDHT() {
   float hif = dht.computeHeatIndex(f, h);
   // Compute heat index in Celsius (isFahreheit = false)
   float hic = dht.computeHeatIndex(t, h, false);
+
+  loopPS();
 
   Serial.print("Humidity: ");
   Serial.print(h);

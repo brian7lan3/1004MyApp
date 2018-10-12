@@ -4,22 +4,23 @@
 #include <aREST.h>
 float temperature;
 float humidity;
+int photoresistor;
 void setup() {
 
   // Start Serial
   Serial.begin(115200);
-  
+
   setupDHT();
-  
+
   setupARest();
 
 }
 
 void loop() {
 
-    loopDHT();
-//  loopDHT_Fake();
-  
+  loopDHT();
+  //  loopDHT_Fake();
+
   loopARest();
   uploadData();
 

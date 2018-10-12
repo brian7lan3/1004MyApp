@@ -28,6 +28,8 @@ void callback(char* topic, byte* payload, unsigned int length);
 
 void uploadData() {
   rest.publish(client, "temperature", temperature);
+  rest.publish(client, "humidity", humidity);
+  rest.publish(client, "photoresistor", photoresistor);
 }
 
 int ledControl(String msg) {
@@ -49,10 +51,11 @@ void setupARest(void)
   client.setCallback(callback);
 
   // Init variables and expose them to REST API
-//  temperature = 24;
-//  humidity = 40;
+  //  temperature = 24;
+  //  humidity = 40;
   rest.variable("temperature", &temperature);
   rest.variable("humidity", &humidity);
+  rest.variable("photoresistor", &photoresistor);
   rest.variable("local_ip", &local_ip);
   rest.function("led", ledControl);
 
