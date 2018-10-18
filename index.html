@@ -136,7 +136,7 @@
                 .then(function (data) {
                     console.log("hum:" + data.variables.humidity);
                     A1s = A1s.concat(data.variables.humidity);
-                    chartb.load({
+                    chart.load({
                         columns: [
                             A1s,
                         ]
@@ -148,26 +148,17 @@
 
         window.onload = () => {
             A0s = ['溫度.temperature'];
+            A1s = ['濕度.humidity'];
 
             chart = c3.generate({
                 bindto: '#chart',
                 data: {
                     columns: [
-                        A0s
+                        A0s,A1s
                     ]
                 }
             });
 
-            A1s = ['濕度.humidity'];
-
-            chartb = c3.generate({
-                bindto: '#chartb',
-                data: {
-                    columns: [
-                        A1s
-                    ]
-                }
-            });
 
             PSs = ['光敏.photoresistor'];
 

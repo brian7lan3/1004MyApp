@@ -2,7 +2,7 @@
 //extern float humidity;
 
 
-#define DHTPIN 4     // what digital pin we're connected to
+#define DHTPIN 4     // PORT:D2
 #define DHTTYPE DHT11   // DHT 11
 
 DHT dht(DHTPIN, DHTTYPE);
@@ -32,7 +32,7 @@ void setupDHT() {
 
 void loopDHT() {
   // Wait a few seconds between measurements.
-  delay(2000);
+//  delay(2000);
 
   // Reading temperature or humidity takes about 250 milliseconds!
   // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
@@ -53,7 +53,7 @@ void loopDHT() {
   // Compute heat index in Celsius (isFahreheit = false)
   float hic = dht.computeHeatIndex(t, h, false);
 
-  loopPS();
+  //  loopPS();
 
   Serial.print("Humidity: ");
   Serial.print(h);
